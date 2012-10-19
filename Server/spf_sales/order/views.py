@@ -31,3 +31,6 @@ def order(request):
             return render(request, 'order.html', {
                'form': form,
                })
+
+def finished(request):
+	return render(request, 'finished.html');
