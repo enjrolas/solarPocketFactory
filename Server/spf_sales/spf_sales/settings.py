@@ -1,4 +1,9 @@
-# Django settings for spf_sales project.
+
+import os
+import sys
+PROJECT_ROOT = os.path.dirname(__file__)
+sys.path.insert(0, os.path.join(PROJECT_ROOT, "apps"))
+#Django settings for spf_sales project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -12,8 +17,8 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'spf_sales',                      # Or path to database file if using sqlite3.
-        'USER': 'root',                      # Not used with sqlite3.
+        'NAME': 'spfSales',                      # Or path to database file if using sqlite3.
+        'USER': 'spfSales',                      # Not used with sqlite3.
         'PASSWORD': 'ms',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
@@ -106,7 +111,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-        "/home/mantis-shrimp/solarPocketFactory/Server/spf_sales/spf_sales/templates/spf"
+    "/home/japhy/internal/solarPocketFactory/Server/spf_sales/spf_sales/templates/spf"
 )
 
 INSTALLED_APPS = (
@@ -117,10 +122,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'order',
+    'command',
 )
 
 # A sample logging configuration. The only tangible logging
