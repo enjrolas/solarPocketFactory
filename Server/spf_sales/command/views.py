@@ -1,19 +1,23 @@
-# Create your views here.
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
-from order.models import Order, OrderForm
+from command.models import Command
+
 from django.utils import timezone
 
 def command(request):
         if request.method == 'POST':
-            form = OrderForm(request.POST)
-            if form.is_valid():
-                _command  =   form.cleaned_data['command']
+		_command=request.POST.get('command', 'boo')
+		_parameter=request.POST.get('parameter',0)
+                myCommand = Command(command=_command, statusTimeStamp=timezone.now(), parameter=_parameter, status='queued', commandTimeStamp=timezone.now())
+                myCommand.save()
+                return HttpResponse(_command)
+	else:
+		return HttpResponse("bite me")
 
-                command = Command(command=_command, statusTimeStamp=timezone.now(), status='queued', commandTimeStamp=timezone.now())
-                command.save()
 
-                return HttpResponse("thank you!")
-            
-            
+def latestCommand(request):
+#	_latestCommand=Entry.objects.all
+
+def interface(request):
+	return render(request, 'interface.html')

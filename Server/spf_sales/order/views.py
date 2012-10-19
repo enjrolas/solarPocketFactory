@@ -33,4 +33,4 @@ def order(request):
                })
 
 def finished(request):
-	return render(request, 'finished.html');
+	return render(request, 'finished.html')
