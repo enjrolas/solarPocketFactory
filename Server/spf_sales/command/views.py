@@ -17,7 +17,9 @@ def command(request):
 
 
 def latestCommand(request):
-#	_latestCommand=Entry.objects.all
+	latest=Command.objects.filter(status='queued').order_by('-commandTimeStamp')[0]
+	return render(request, 'latestCommand.html', { 'command': latest})
+
 
 def interface(request):
 	return render(request, 'interface.html')
