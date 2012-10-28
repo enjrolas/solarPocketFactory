@@ -17,9 +17,14 @@ def command(request):
 
 
 def latestCommand(request):
-	latest=Command.objects.filter(status='queued').order_by('-commandTimeStamp')[0]
-	return render(request, 'latestCommand.html', { 'command': latest})
-
+	if Command.objects.filter(status='queued').order_by('-commandTimeStamp').exists():
+		latest=Command.objects.filter(status='queued').order_by('-commandTimeStamp')[0]
+		latest.status= "loaded onto pi"
+		latest.statusTimeStamp=timezone.now()
+		latest.save()
+		return render(request, 'latestCommand.html', { 'command': latest})
+	else:
+		return HttpResponse("queue_empty")
 
 def interface(request):
 	return render(request, 'interface.html')
