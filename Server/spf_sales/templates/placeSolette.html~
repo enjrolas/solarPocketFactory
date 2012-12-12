@@ -1,0 +1,14 @@
+{"gc" : "g0y {{ factorState.hopperPosition }} "}  //move the pick head over the solette hopper
+{"gc" : "M7"}  //open the suction solenoid
+{"gc" : "M3"}  //lower the suction head
+{"gc" : "G4 P100"}  //dwell 100 ms
+{"gc" : "M4"}  //raise the suction head
+{"gc" : "g0y0"}  //move the pick head over the conveyor
+{"gc" : "M3"}  //lower the suction head
+{"gc" : "M9"}  //turn off the suction 
+{"gc" : "G4 P100"}  //dwell 100ms
+{"gc" : "M4"}  // raise the suction head
+{"gc" : "g0x26A26"}  //move the conveyor two solette lengths and dispense two solette lengths of tabbing
+{"gc" : "S0"}  //tabbing cutter down
+{"gc" : "S1600"} //tabbing cutter up
+{"gc" : "G0x13"}  //back that conveyor up
