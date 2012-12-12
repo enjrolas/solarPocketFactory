@@ -9,7 +9,8 @@ def command(request):
         if request.method == 'POST':
 		_command=request.POST.get('command', 'boo')
 		_parameter=request.POST.get('parameter',0)
-                jsonString=jsonTranslation(_command)
+                jsonString=""
+#jsonString=jsonTranslation(_command)
 		myCommand = Command(command=_command, statusTimeStamp=timezone.now(), parameter=_parameter, status='queued', commandTimeStamp=timezone.now(), json=jsonString)
                 myCommand.save()
                 return HttpResponse(_command)

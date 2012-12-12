@@ -10,3 +10,5 @@ class Command(models.Model):
     description = models.TextField()
     json = models.TextField()
 
+    def __unicode__(self):
+        return self.command

@@ -65,7 +65,7 @@ STATIC_ROOT = '/home/japhy/internal/solarPocketFactory/Server/spf_sales/static'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+STATIC_URL = 'http://www.solarpocketfactory.com/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -73,6 +73,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     '/home/japhy/internal/solarPocketFactory/Server/spf_sales/spf_sales/static',
+    '/usr/local/lib/python2.6/dist-packages/django/contrib/admin/',
 )
 
 # List of finder classes that know how to find static files in
@@ -112,7 +113,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "/home/japhy/internal/solarPocketFactory/Server/spf_sales/spf_sales/templates/spf"
+    "/home/japhy/internal/solarPocketFactory/Server/spf_sales/templates"
 )
 
 INSTALLED_APPS = (
@@ -128,6 +129,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'order',
     'command',
+    'factoryState',
     'django_evolution',
 )
 
