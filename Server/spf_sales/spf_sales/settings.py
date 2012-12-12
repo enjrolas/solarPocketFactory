@@ -1,7 +1,10 @@
 import os
 import sys
+import django
 PROJECT_ROOT = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "apps"))
+DJANGO_ROOT = os.path.dirname(os.path.realpath(django.__file__))
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 #Django settings for spf_sales project.
 
@@ -16,8 +19,9 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'spfSales',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': os.path.join(SITE_ROOT, 'db') + '/solarPocketFactory.db',
+#        'NAME': 'spfSales',                      # Or path to database file if using sqlite3.
         'USER': 'spfSales',                      # Not used with sqlite3.
         'PASSWORD': 'ms',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -112,8 +116,11 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "/home/japhy/internal/solarPocketFactory/Server/spf_sales/spf_sales/templates/spf"
+    os.path.join(SITE_ROOT, 'templates/spf/'),
 )
+
+print     os.path.join(SITE_ROOT, 'spf_sales/templates/spf/')
+
 
 INSTALLED_APPS = (
     'django.contrib.auth',
