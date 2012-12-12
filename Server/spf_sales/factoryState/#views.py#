@@ -5,3 +5,6 @@ from command.models import Command
 
 from django.utils import timezone
 
+def getState(request):
+
+def update(request):
