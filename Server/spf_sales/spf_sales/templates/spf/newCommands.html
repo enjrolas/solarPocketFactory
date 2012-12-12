@@ -1,0 +1,11 @@
+<b>command, parameter, timestamp, description, json </b><br/>
+
+{% for command in commands %}
+{{ command.command }},
+{{ command.parameter }},
+{{ command.commandTimeStamp|date:"M/d/Y h:m:s"}},
+{{ command.description }},
+{{ command.json }}<br/>
+
+{% endfor %}
+

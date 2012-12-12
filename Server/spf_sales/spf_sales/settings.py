@@ -121,7 +121,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     'django_evolution',
@@ -129,6 +128,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'order',
     'command',
+    'django_evolution',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

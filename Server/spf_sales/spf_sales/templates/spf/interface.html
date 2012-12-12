@@ -12,38 +12,129 @@ function sendParameter(value){
 
 </script>
 
-</head>
-<div id="msgid">
-</div>
-<input type="button" value="placeOneSolette" onclick="sendPost($(this).val())" />
-      <input type="button" value="placeOneSolette" onclick="sendPost($(this).val())" />      
-      <input type="button" value="setHome" onclick="sendPost($(this).val())" />  
-      <input type="button" value="setPickPosition" onclick="sendPost($(this).val())" />  <br/>
-      <input type="button" value="placePanel" onclick="sendParameter($(this).val())" />
-      <input type="text" value="voltage" id="voltage"><br/>
-      <input type="button" value="moveToSolettePickup" onclick="sendPost($(this).val())" />
-      <input type="button" value="moveToConveyor" onclick="sendPost($(this).val())" />
-      <input type="button" value="raiseSolettes" onclick="sendPost($(this).val())" />  
-      <input type="button" value="lowerSolettes" onclick="sendPost($(this).val())" />
-      <input type="button" value="retractConveyor" onclick="sendPost($(this).val())" />
-      <input type="button" value="advanceConveyor" onclick="sendPost($(this).val())" />
-      <input type="button" value="moveConveyorToHome" onclick="sendPost($(this).val())" />
-      <input type="button" value="movePickIn" onclick="sendPost($(this).val())" />  
-      <input type="button" value="movePickOut" onclick="sendPost($(this).val())" />  
-      <input type="button" value="vacuumOn" onclick="sendPost($(this).val())" />  
-      <input type="button" value="vacuumOff" onclick="sendPost($(this).val())" /> 
-      <input type="button" value="solenoidOn" onclick="sendPost($(this).val())" /> 
-      <input type="button" value="solenoidOff" onclick="sendPost($(this).val())" /> 
-      <input type="button" value="solderpaste" onclick="sendPost($(this).val())" />
-      <input type="button" value="parkPickHead" onclick="sendPost($(this).val())" /> 
-      <input type="button" value="lowerPickHead" onclick="sendPost($(this).val())" />
-      <input type="button" value="dotPickHead" onclick="sendPost($(this).val())" /> 
-      <input type="button" value="moveToOven" onclick="sendPost($(this).val())" />
-      <input type="button" value="reflowSolder" onclick="sendPost($(this).val())" />    
-      <input type="button" value="ovenOn" onclick="sendPost($(this).val())" />  
-      <input type="button" value="ovenOff" onclick="sendPost($(this).val())" />  
-      <input type="button" value="preheatOn" onclick="sendPost($(this).val())" />
-      <input type="button" value="preheatOff" onclick="sendPost($(this).val())" />
+<style type="text/css">
+input.button {
+-moz-box-shadow:inset 0px 1px 3px 0px #ffffff;
+-webkit-box-shadow:inset 0px 1px 3px 0px #ffffff;
+box-shadow:inset 0px 1px 3px 0px #ffffff;
+background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+background-color:#ededed;
+-moz-border-radius:39px;
+-webkit-border-radius:39px;
+border-radius:39px;
+border:1px solid #dcdcdc;
+width:280px;
+display:inline-block;
+color:#777777;
+font-family:arial;
+font-size:22px;
+margin-top: 5px;
+font-weight:bold;
+padding:8px 29px;
+text-decoration:none;
+text-shadow:3px 2px 4px #ffffff;
+}.classname:hover {
+background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+background-color:#dfdfdf;
+}.classname:active {
+position:relative;
+top:1px;
+}
 
+div.motionCommands{
+width:33%;
+}
+
+div.utility{
+width:33%;
+}
+
+div.buttons{
+width:90%;
+float:left;
+}
+
+div.adjustableCommand{
+margin-top:10px;
+float:left;
+}
+
+div.commandButtons{
+width: 60%;
+float:left;
+}
+
+
+div.parameter{
+padding-top:  41px;
+}
+
+input.parameter{
+width: 50px;
+}
+
+</style>
+
+</head>
+<div class="buttons">
+<div class="motionCommands">
+<div id="placement">
+      <input type="button" class="button" value="placePanel" onclick="sendPanel($(this).val())" />
+      <input type="text" value="5" id="voltage"> volts
+      <input type="button" class="button" value="placeOneSolette" onclick="sendPost($(this).val())" />      
+
+</div>
+
+<div id="motion">
+      <input type="button" class="button" value="moveToSolettePickup" onclick="sendPost($(this).val())" />
+      <input type="button" class="button" value="moveToConveyor" onclick="sendPost($(this).val())" />
+      <div class="adjustableCommand">
+	<div class="commandButtons">
+	  <input type="button" class="button" value="movePickIn" onclick="sendPost($(this).val())" />  
+	  <input type="button" class="button" value="movePickOut" onclick="sendPost($(this).val())" />  
+	</div>
+	<div class="parameter">
+	  <input type="text" class="parameter" value="5" id="pick"> mm
+	</div>
+      </div>
+
+      <div class="adjustableCommand">
+	<div class="commandButtons">
+	  <input type="button" class="button" value="raiseSolettes" onclick="sendPost($(this).val())" />  
+	  <input type="button" class="button" value="lowerSolettes" onclick="sendPost($(this).val())" />
+	</div>
+	<div class="parameter">
+	  <input type="text" value="5" class="parameter"  id="solettes"> mm
+	</div>
+      </div>
+
+      <div class="adjustableCommand">
+	<div class="commandButtons">
+	  <input type="button" class="button" value="retractConveyor" onclick="sendPost($(this).val())" />
+	  <input type="button" class="button" value="advanceConveyor" onclick="sendPost($(this).val())" />
+	</div>
+	<div class="parameter">
+	  <input type="text" value="5" class="parameter" id="conveyor"> mm
+	</div>
+      </div>
+
+
+      <input type="button" class="button" value="raisePickHead" onclick="sendPost($(this).val())" /> 
+      <input type="button" class="button" value="lowerPickHead" onclick="sendPost($(this).val())" />
+</div>
+</div>
+
+<div class="utility">
+      <input type="button" class="button" value="vacuumOn" onclick="sendPost($(this).val())" />  
+      <input type="button" class="button" value="vacuumOff" onclick="sendPost($(this).val())" /> 
+      <input type="button" class="button" value="solenoidOn" onclick="sendPost($(this).val())" /> 
+      <input type="button" class="button" value="solenoidOff" onclick="sendPost($(this).val())" /> 
+</div>
+
+</div>
 
 </html>

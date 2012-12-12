@@ -18,5 +18,6 @@ urlpatterns = patterns('',
      url(r'^interface/', 'command.views.interface'),
      url(r'^order/', 'order.views.order'),
      url(r'^latestCommand/', 'command.views.latestCommand'),
+     url(r'^newCommands/', 'command.views.newCommands'),
 
 )
