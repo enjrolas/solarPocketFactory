@@ -1,42 +1,53 @@
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from command.models import Command
-
+from factoryState.models import FactoryState
 from django.utils import timezone
 
 def command(request):
         if request.method == 'POST':
 		_command=request.POST.get('command', 'boo')
 		_parameter=request.POST.get('parameter',0)
-                jsonString=""
-#jsonString=jsonTranslation(_command)
-		myCommand = Command(command=_command, statusTimeStamp=timezone.now(), parameter=_parameter, status='queued', commandTimeStamp=timezone.now(), json=jsonString)
+		_quantity=request.POST.get('quantity',0)
+		myCommand = Command(command=_command, statusTimeStamp=timezone.now(), parameter=_parameter, quantity=_quantity, status='queued', commandTimeStamp=timezone.now())
+		myCommand.json=jsonTranslation(myCommand)
+		if myCommand.command=="placePanel":
+			myCommand.description=buildDescription(myCommand)
                 myCommand.save()
-                return HttpResponse(_command)
+                return HttpResponse("yo")
 	else:
 		return HttpResponse("bite me")
 
+def buildDescription(_command):
+	if FactoryState.objects.exists():  #assuming we have a factoryState object, pass it to the appropriate json template, render the template, and pass it back, to get stored along with the command
+		factoryState=FactoryState.objects.get(id=1)
+		description=render_to_string("panelDescription.html", {'command': _command, 'factoryState' : factoryState})
+	else:
+		description="aaa"
+	return description
+
 def jsonTranslation(_command):
-	jsonStrings=Translation.objects.filter(command=_command)
-	if len(jsonStrings)==1:
-		jsonString=jsonStrings[0].json
+	if FactoryState.objects.exists():  #assuming we have a factoryState object, pass it to the appropriate json template, render the template, and pass it back, to get stored along with the command
+		factoryState=FactoryState.objects.get(id=1)
+		jsonString=render_to_string(_command.command + ".html", {'command': _command, 'factoryState' : factoryState})
 	else:
 		jsonString=""
 	return jsonString
 
-	
-
+def json(request):
+	_command="placeSolette"
+	if FactoryState.objects.exists():  #assuming we have a factoryState object, pass it to the appropriate json template, render the template, and pass it back, to get stored along with the command
+		factoryState=FactoryState.objects.get(id=1)
+		jsonString=render_to_string(_command + ".html", {'command': _command, 'factoryState' : factoryState})
+	else:
+		jsonString=""
+	responseString=_command+" "+jsonString
+	return HttpResponse(responseString)
 
 def latestCommand(request):
-	if Command.objects.filter(status='queued').order_by('-commandTimeStamp').exists():
-		latest=Command.objects.filter(status='queued').order_by('-commandTimeStamp')[0]
-		latest.status= "loaded onto pi"
-		latest.statusTimeStamp=timezone.now()
-		latest.save()
-		return render(request, 'latestCommand.html', { 'command': latest})
-	else:
-		return HttpResponse("queue_empty")
+	return HttpResponse("bluh")
 
 def newCommands(request):
 	if Command.objects.filter(status='queued').order_by('-commandTimeStamp').exists():
@@ -50,4 +61,11 @@ def newCommands(request):
 		return HttpResponse("queue_empty")
 
 def interface(request):
-	return render(request, 'interface.html')
+	if FactoryState.objects.exists():  #assuming we have a factoryState object, pass it to the appropriate json template, render the template, and pass it back, to get stored along with the command
+		factoryState=FactoryState.objects.get(id=1)
+	return render(request, 'interface.html', {'factoryState' : factoryState})
+
+def startup(request):
+	if FactoryState.objects.exists():  #assuming we have a factoryState object, pass it to the appropriate json template, render the template, and pass it back, to get stored along with the command
+		factoryState=FactoryState.objects.get(id=1)
+	return render(request, 'startup.html', {'factoryState' : factoryState})

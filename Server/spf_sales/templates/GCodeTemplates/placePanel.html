@@ -1,0 +1,19 @@
+{% extends "placeSolette.html" %}
+{% block prefix %} {# this gcode handles popping a backing from the hopper and advancing it until it's ready to place solettes #}
+!6   {# backing pusher out #}
+!5 {# backing pusher in #}
+G28.1X0 {# 'home' panel to breakbeam #}
+G0X{{ factoryState.tabbingOffset }}  {# move from the beginning of the hole to the base of the first solette #}
+G0A{{ factoryState.tabbingConnection }} {# extend the tabbing between the pad and the first solette #}
+!2  {# tabbing cutter down #}
+!1 {# tabbing cutter up #}
+
+,{% endblock %}
+
+{% block postfix %}  {# here's the gcode that happens after you place all the solettes #}
+,
+{# g0X{{ factoryState.tabbingOffset|add:-factoryState.soletteLength }} #}
+G0A{{ factoryState.tabbingConnection }}
+!2  {# tabbing cutter down #}
+!1 {# tabbing cutter up #}
+{% endblock %}

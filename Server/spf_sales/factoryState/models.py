@@ -3,42 +3,42 @@ from django.forms import ModelForm
 
 class FactoryState(models.Model):
     #mapping
-    _1ma=models.IntegerField()
-    _2ma=models.IntegerField()
-    _3ma=models.IntegerField()
-    _4ma=models.IntegerField()
+    var_1ma=models.IntegerField()
+    var_2ma=models.IntegerField()
+    var_3ma=models.IntegerField()
+    var_4ma=models.IntegerField()
 
     #axis settings
     
     #feed rate
-    _xfr=models.IntegerField()
-    _yfr=models.IntegerField()
-    _zfr=models.IntegerField()
-    _afr=models.IntegerField()
+    var_xfr=models.IntegerField()
+    var_yfr=models.IntegerField()
+    var_zfr=models.IntegerField()
+    var_afr=models.IntegerField()
 
     #max velocity
-    _xvm=models.IntegerField()
-    _yvm=models.IntegerField()
-    _zvm=models.IntegerField()
-    _avm=models.IntegerField()
+    var_xvm=models.IntegerField()
+    var_yvm=models.IntegerField()
+    var_zvm=models.IntegerField()
+    var_avm=models.IntegerField()
 
     #travel
-    _xtr=models.FloatField()
-    _ytr=models.FloatField()
-    _ztr=models.FloatField()
-    _atr=models.FloatField()
+    var_xtr=models.FloatField()
+    var_ytr=models.FloatField()
+    var_ztr=models.FloatField()
+    var_atr=models.FloatField()
 
     #step angle
-    _xsa=models.FloatField()
-    _ysa=models.FloatField()
-    _zsa=models.FloatField()
-    _asa=models.FloatField()
+    var_xsa=models.FloatField()
+    var_ysa=models.FloatField()
+    var_zsa=models.FloatField()
+    var_asa=models.FloatField()
 
     #power mode
-    _1pm=models.IntegerField()
-    _2pm=models.IntegerField()
-    _3pm=models.IntegerField()
-    _4pm=models.IntegerField()
+    var_1pm=models.IntegerField()
+    var_2pm=models.IntegerField()
+    var_3pm=models.IntegerField()
+    var_4pm=models.IntegerField()
     
     #raw materials in stock
     solettesInHopper=models.IntegerField()  #number of solettes
@@ -51,3 +51,22 @@ class FactoryState(models.Model):
 
     soletteWidth=models.FloatField()  #in mm
     soletteLength=models.FloatField()  # in mm
+
+
+    hopperPosition=models.FloatField() #in mm, hopperPosition along the axis
+    conveyorPosition=models.FloatField() #in mm, conveyorPosition along the axis
+    
+    suctionReleaseTime=models.IntegerField()  #in ms, how long you wait after releasing suction, before moving the head
+    suctionDelay=models.IntegerField()  #in ms, how long you wait after turning on suction, before moving the head
+
+
+    #backing dimensions
+    tabbingOffset=models.FloatField()
+    holeOffset=models.FloatField()
+    holeLength=models.FloatField()
+    padLength=models.FloatField()
+    tabbingConnection=models.FloatField()
+    tabbingLength=models.FloatField()  #in mm, the length of tabbing to extend with every solette placement
+    tabbingOffset=models.FloatField()
+
+    soletteSpacing=models.FloatField()  #in mm
