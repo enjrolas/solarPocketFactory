@@ -18,9 +18,12 @@ urlpatterns = patterns('',
      url(r'^command/', 'command.views.command'),
      url(r'^json/', 'command.views.json'),
      url(r'^interface/', 'command.views.interface'),
+     url(r'^testing/', 'command.views.testing'),
      url(r'^startup/', 'command.views.startup'),
      url(r'^order/', 'order.views.order'),
      url(r'^latestCommand/', 'command.views.latestCommand'),
-     url(r'^newCommands/', 'command.views.newCommands'),
+     url(r'^differentCommands/', 'command.views.newCommands'),
+     url(r'^tinyGParameter/', 'command.views.tinyGParameter'),
+     url(r'^factoryState/', 'command.views.factoryState'),
 
 )

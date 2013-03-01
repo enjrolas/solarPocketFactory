@@ -22,6 +22,7 @@
 </div>
 
 <div id="motion">
+      <input type="button" class="button" value="homePick" onclick="sendPost($(this).val())" /> 
       <div class="adjustableCommand">
 	<div class="commandButtons">
 	  <input type="button" class="button" value="movePickIn" onclick="pick($(this).val())" />  
@@ -46,9 +47,21 @@
 	<div class="commandButtons">
 	  <input type="button" class="button" value="retractConveyor" onclick="conveyor($(this).val())" />
 	  <input type="button" class="button" value="advanceConveyor" onclick="conveyor($(this).val())" />
+	  <input type="button" class="button" value="setConveyorHomePos" onclick="sendPost($(this).val())" />
+	  <input type="button" class="button" value="homeConveyor" onclick="sendPost($(this).val())" />
 	</div>
 	<div class="parameter">
 	  <input type="text" value="5" class="parameter" id="conveyor"> mm
+	</div>
+      </div>
+
+      <div class="adjustableCommand">
+	<div class="commandButtons">
+	  <input type="button" class="button" value="retractTabbing" onclick="tabbing($(this).val())" />
+	  <input type="button" class="button" value="advanceTabbing" onclick="tabbing($(this).val())" />
+	</div>
+	<div class="parameter">
+	  <input type="text" value="5" class="parameter" id="tabbing"> mm
 	</div>
       </div>
 
@@ -61,8 +74,7 @@
 </div>
 
 <div class="utility">
-      <input type="button" class="button" value="vacuumOn" onclick="sendPost($(this).val())" />  
-      <input type="button" class="button" value="vacuumOff" onclick="sendPost($(this).val())" /> 
+      <input type="button" class="button" value="solder" onclick="sendPost($(this).val())" /> 
       <input type="button" class="button" value="suctionOn" onclick="sendPost($(this).val())" /> 
       <input type="button" class="button" value="suctionOff" onclick="sendPost($(this).val())" /> 
       <input type="button" class="button" value="backingPusherIn" onclick="sendPost($(this).val())" /> 
@@ -70,6 +82,12 @@
       <input type="button" class="button" value="tabbingCutterUp" onclick="sendPost($(this).val())" /> 
       <input type="button" class="button" value="tabbingCutterDown" onclick="sendPost($(this).val())" /> 
       <input type="button" class="button" value="demo" onclick="sendPost($(this).val())" /> 
+      <input type="button" class="button" value="bounceWithMe" onclick="sendPost($(this).val())" /> 
+      <input type="button" class="button" value="startup" onclick="sendPost($(this).val())" /> 
+      <input type="button" class="button" value="solderDoorDown" onclick="sendPost($(this).val())" /> 
+      <input type="button" class="button" value="solderDoorUp" onclick="sendPost($(this).val())" /> 
+      <input type="button" class="button" value="solderFanOn" onclick="sendPost($(this).val())" /> 
+      <input type="button" class="button" value="solderFanOff" onclick="sendPost($(this).val())" /> 
 
       <input type="button" class="button" id="E-Stop"  value="E-stop" onclick="sendPost($(this).val())" /> 
 </div>
@@ -78,64 +96,79 @@
 
 <div class="factoryStateColumn1">
   axis mapping<br/>
-    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_1ma"><input type="text" id="" value="{{ factoryState.var_1ma }}" name="var_1ma" class="factoryStateValue"></div>
-    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_2ma"><input type="text" id="" value="{{ factoryState.var_2ma }}" name="var_2ma" class="factoryStateValue"></div>
-    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_3ma"><input type="text" id="" value="{{ factoryState.var_3ma }}" name="var_3ma" class="factoryStateValue"></div>
-    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_4ma"><input type="text" id="" value="{{ factoryState.var_4ma }}" name="var_4ma" class="factoryStateValue"></div>
+    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_1ma"><input type="text"  value="{{ factoryState.var_1ma }}" id="var_1ma" class="factoryStateValue"></div>
+    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_2ma"><input type="text"  value="{{ factoryState.var_2ma }}" id="var_2ma" class="factoryStateValue"></div>
+    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_3ma"><input type="text"  value="{{ factoryState.var_3ma }}" id="var_3ma" class="factoryStateValue"></div>
+    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_4ma"><input type="text"  value="{{ factoryState.var_4ma }}" id="var_4ma" class="factoryStateValue"></div>
 
     #feed rate<br/>
-    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_xfr"><input type="text" id="" value="{{ factoryState.var_xfr }}" name="var_xfr" class="factoryStateValue"></div>
-    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_yfr"><input type="text" id="" value="{{ factoryState.var_yfr }}" name="var_yfr" class="factoryStateValue"></div>
-    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_zfr"><input type="text" id="" value="{{ factoryState.var_zfr }}" name="var_zfr" class="factoryStateValue"></div>
-    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_afr"><input type="text" id="" value="{{ factoryState.var_afr }}" name="var_afr" class="factoryStateValue"></div>
+    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_xfr"><input type="text"  value="{{ factoryState.var_xfr }}" id="var_xfr" class="factoryStateValue"></div>
+    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_yfr"><input type="text"  value="{{ factoryState.var_yfr }}" id="var_yfr" class="factoryStateValue"></div>
+    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_zfr"><input type="text"  value="{{ factoryState.var_zfr }}" id="var_zfr" class="factoryStateValue"></div>
+    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_afr"><input type="text"  value="{{ factoryState.var_afr }}" id="var_afr" class="factoryStateValue"></div>
 
     #max velocity<br/>
-    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_xvm"><input type="text" id="" value="{{ factoryState.var_xvm }}" name="var_xvm" class="factoryStateValue"></div>
-    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_yvm"><input type="text" id="" value="{{ factoryState.var_yvm }}" name="var_yvm" class="factoryStateValue"></div>
-    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_zvm"><input type="text" id="" value="{{ factoryState.var_zvm }}" name="var_zvm" class="factoryStateValue"></div>
-    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_avm"><input type="text" id="" value="{{ factoryState.var_avm }}" name="var_avm" class="factoryStateValue"></div>
+    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_xvm"><input type="text"  value="{{ factoryState.var_xvm }}" id="var_xvm" class="factoryStateValue"></div>
+    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_yvm"><input type="text"  value="{{ factoryState.var_yvm }}" id="var_yvm" class="factoryStateValue"></div>
+    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_zvm"><input type="text"  value="{{ factoryState.var_zvm }}" id="var_zvm" class="factoryStateValue"></div>
+    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_avm"><input type="text"  value="{{ factoryState.var_avm }}" id="var_avm" class="factoryStateValue"></div>
 
-    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_xtr"><input type="text" id="" value="{{ factoryState.var_xtr }}" name="var_xtr" class="factoryStateValue"></div>
-    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_ytr"><input type="text" id="" value="{{ factoryState.var_ytr }}" name="var_ytr" class="factoryStateValue"></div>
-    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_ztr"><input type="text" id="" value="{{ factoryState.var_ztr }}" name="var_ztr" class="factoryStateValue"></div>
-    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_atr"><input type="text" id="" value="{{ factoryState.var_atr }}" name="var_atr" class="factoryStateValue"></div>
+    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_1tr"><input type="text"  value="{{ factoryState.var_1tr }}" id="var_1tr" class="factoryStateValue"></div>
+    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_2tr"><input type="text"  value="{{ factoryState.var_2tr }}" id="var_2tr" class="factoryStateValue"></div>
+    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_3tr"><input type="text"  value="{{ factoryState.var_3tr }}" id="var_3tr" class="factoryStateValue"></div>
+    <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_4tr"><input type="text"  value="{{ factoryState.var_4tr }}" id="var_4tr" class="factoryStateValue"></div>
 
     #step angle<br/>
 
-        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_xsa"><input type="text" id="" value="{{ factoryState.var_xsa }}" name="var_xsa" class="factoryStateValue"></div>
-        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_ysa"><input type="text" id="" value="{{ factoryState.var_ysa }}" name="var_ysa" class="factoryStateValue"></div>
-        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_zsa"><input type="text" id="" value="{{ factoryState.var_zsa }}" name="var_zsa" class="factoryStateValue"></div>
-        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_asa"><input type="text" id="" value="{{ factoryState.var_asa }}" name="var_asa" class="factoryStateValue"></div>
+        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_xsa"><input type="text"  value="{{ factoryState.var_xsa }}" id="var_xsa" class="factoryStateValue"></div>
+        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_ysa"><input type="text"  value="{{ factoryState.var_ysa }}" id="var_ysa" class="factoryStateValue"></div>
+        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_zsa"><input type="text"  value="{{ factoryState.var_zsa }}" id="var_zsa" class="factoryStateValue"></div>
+        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_asa"><input type="text"  value="{{ factoryState.var_asa }}" id="var_asa" class="factoryStateValue"></div>
 
     #power mode<br/>
-        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_1pm"><input type="text" id="" value="{{ factoryState.var_1pm }}" name="var_1pm" class="factoryStateValue"></div>
-        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_2pm"><input type="text" id="" value="{{ factoryState.var_2pm }}" name="var_2pm" class="factoryStateValue"></div>
-        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_3pm"><input type="text" id="" value="{{ factoryState.var_3pm }}" name="var_3pm" class="factoryStateValue"></div>
-        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_4pm"><input type="text" id="" value="{{ factoryState.var_4pm }}" name="var_4pm" class="factoryStateValue"></div>
+        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_1pm"><input type="text"  value="{{ factoryState.var_1pm }}" id="var_1pm" class="factoryStateValue"></div>
+        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_2pm"><input type="text"  value="{{ factoryState.var_2pm }}" id="var_2pm" class="factoryStateValue"></div>
+        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_3pm"><input type="text"  value="{{ factoryState.var_3pm }}" id="var_3pm" class="factoryStateValue"></div>
+        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="var_4pm"><input type="text"  value="{{ factoryState.var_4pm }}" id="var_4pm" class="factoryStateValue"></div>
+
+    #distance mode<br/>
+	<div class="valueLine"><input type="button" class="factoryStateButton" value="absolute" onClick="sendPost($(this).val())" /></div>
+	<div class="valueLine"><input type="button" class="factoryStateButton" value="incremental" onClick="sendPost($(this).val())" /></div>
 
     </div><div class="factoryStateColumn2">
     
     #raw materials in stock<br/>
-        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="solettesInHopper"><input type="text" id="" value="{{ factoryState.solettesInHopper }}" name="solettesInHopper" class="factoryStateValue"></div>
-            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="backingWidth"><input type="text" id="" value="{{ factoryState.backingWidth }}" name="backingWidth" class="factoryStateValue"></div>
-            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="backingLength"><input type="text" id="" value="{{ factoryState.backingLength }}" name="backingLength" class="factoryStateValue"></div>
+        <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="solettesInHopper"><input type="text"  value="{{ factoryState.solettesInHopper }}" id="solettesInHopper" class="factoryStateValue"></div>
+            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="backingWidth"><input type="text"  value="{{ factoryState.backingWidth }}" id="backingWidth" class="factoryStateValue"></div>
+            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="backingLength"><input type="text"  value="{{ factoryState.backingLength }}" id="backingLength" class="factoryStateValue"></div>
 
 
 
-            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="hopperPosition"><input type="text" id="" value="{{ factoryState.hopperPosition }}" name="hopperPosition" class="factoryStateValue"></div>
+            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="hopperPosition"><input type="text"  value="{{ factoryState.hopperPosition }}" id="hopperPosition" class="factoryStateValue"></div>
     
-            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="suctionReleaseTime "><input type="text" id="" value="{{ factoryState.suctionReleaseTime }}" name="suctionReleaseTime" class="factoryStateValue"></div>
-            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="suctionDelay "><input type="text" id="" value="{{ factoryState.suctionDelay }}" name="suctionDelay" class="factoryStateValue"></div>
+            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="suctionReleaseTime "><input type="text"  value="{{ factoryState.suctionReleaseTime }}" id="suctionReleaseTime" class="factoryStateValue"></div>
+            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="suctionDelay "><input type="text"  value="{{ factoryState.suctionDelay }}" id="suctionDelay" class="factoryStateValue"></div>
 
     #backing dimensions<br/>
-            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="tabbingOffset"><input type="text" id="" value="{{ factoryState.tabbingOffset }}" name="tabbingOffset" class="factoryStateValue"></div>
-            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="holeOffset"><input type="text" id="" value="{{ factoryState.holeOffset }}" name="holeLength" class="factoryStateValue"></div>
-            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="holeLength"><input type="text" id="" value="{{ factoryState.holeLength }}" name="holeLength" class="factoryStateValue"></div>
-            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="padLength"><input type="text" id="" value="{{ factoryState.padLength }}" name="padLength" class="factoryStateValue"></div>
-            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="tabbingConnection"><input type="text" id="" value="{{ factoryState.tabbingConnection }}" name="tabbingConnection" class="factoryStateValue"></div>
-            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="tabbingLength"><input type="text" id="" value="{{ factoryState.tabbingLength }}" name="tabbingLength" class="factoryStateValue"></div>
+            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="tabbingOffset"><input type="text"  value="{{ factoryState.tabbingOffset }}" id="tabbingOffset" class="factoryStateValue"></div>
+            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="holeOffset"><input type="text"  value="{{ factoryState.holeOffset }}" id="holeLength" class="factoryStateValue"></div>
+            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="holeLength"><input type="text"  value="{{ factoryState.holeLength }}" id="holeLength" class="factoryStateValue"></div>
+            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="padLength"><input type="text"  value="{{ factoryState.padLength }}" id="padLength" class="factoryStateValue"></div>
+            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="tabbingConnection"><input type="text"  value="{{ factoryState.tabbingConnection }}" id="tabbingConnection" class="factoryStateValue"></div>
+            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="tabbingLength"><input type="text"  value="{{ factoryState.tabbingLength }}" id="tabbingLength" class="factoryStateValue"></div>
 
-            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="sendValue($(this).val())" value="soletteSpacing"><input type="text" id="" value="{{ factoryState.soletteSpacing }}" name="soletteSpacing" class="factoryStateValue"></div>    
+            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="soletteSpacing"><input type="text"  value="{{ factoryState.soletteSpacing }}" id="soletteSpacing" class="factoryStateValue"></div>    
+
+    #solette dimensions<br/>
+            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="soletteLength"><input type="text"  value="{{ factoryState.soletteLength }}" id="soletteLength" class="factoryStateValue"></div>
+             <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="soletteWidth"><input type="text"  value="{{ factoryState.soletteWidth }}" id="soletteWidth" class="factoryStateValue"></div> 
+             <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="soletteThickness"><input type="text"  value="{{ factoryState.soletteThickness }}" id="soletteThickness" class="factoryStateValue"></div>
+ 
+
+    #factory dimensions<br/>
+            <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="hopperPosition"><input type="text"  value="{{ factoryState.hopperPosition }}" id="hopperPosition" class="factoryStateValue"></div>
+             <div class="valueLine"><input type="button" class="factoryStateButton" onClick="updateFactoryState($(this).val())" value="conveyorPosition"><input type="text"  value="{{ factoryState.conveyorPosition }}" id="conveyorPosition" class="factoryStateValue"></div>
+ 
 
 </div>
 

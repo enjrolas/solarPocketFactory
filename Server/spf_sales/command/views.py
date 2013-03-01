@@ -49,6 +49,33 @@ def json(request):
 def latestCommand(request):
 	return HttpResponse("bluh")
 
+def tinyGParameter(request):
+        if request.method == 'POST':
+		_command=request.POST.get('command', 'boo')
+		_parameter=request.POST.get('parameter',0)
+		factoryState=FactoryState.objects.get(id=1)
+		if _command.find('var_')!=-1:
+			setattr(factoryState, _command, _parameter)
+			_command=_command[4:]
+			factoryState.save()
+		myCommand = Command(command=_command, statusTimeStamp=timezone.now(), quantity=0,parameter=_parameter, status='queued', commandTimeStamp=timezone.now())
+		myCommand.json=render_to_string("parameter.html", {'command': myCommand})
+                myCommand.save()
+                return HttpResponse("parameter set")
+	else:
+		return HttpResponse("poo")
+
+def factoryState(request):
+        if request.method == 'POST':
+		_command=request.POST.get('command', 'boo')
+		_parameter=request.POST.get('parameter',0)
+		factoryState=FactoryState.objects.get(id=1)
+		setattr(factoryState, _command, _parameter)
+		factoryState.save()
+		return HttpResponse("factory settings updated")
+	else:
+		return HttpResponse("poo")
+
 def newCommands(request):
 	if Command.objects.filter(status='queued').order_by('-commandTimeStamp').exists():
 		latestCommands=Command.objects.filter(status='queued').order_by('-commandTimeStamp')
@@ -64,6 +91,11 @@ def interface(request):
 	if FactoryState.objects.exists():  #assuming we have a factoryState object, pass it to the appropriate json template, render the template, and pass it back, to get stored along with the command
 		factoryState=FactoryState.objects.get(id=1)
 	return render(request, 'interface.html', {'factoryState' : factoryState})
+
+def testing(request):
+	if FactoryState.objects.exists():  #assuming we have a factoryState object, pass it to the appropriate json template, render the template, and pass it back, to get stored along with the command
+		factoryState=FactoryState.objects.get(id=1)
+	return render(request, 'testing.html', {'factoryState' : factoryState})
 
 def startup(request):
 	if FactoryState.objects.exists():  #assuming we have a factoryState object, pass it to the appropriate json template, render the template, and pass it back, to get stored along with the command

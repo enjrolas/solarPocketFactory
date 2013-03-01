@@ -1,0 +1,2 @@
+./manage.py schemamigration $1 --initial
+./manage.py migrate $1

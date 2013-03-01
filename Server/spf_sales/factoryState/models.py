@@ -23,10 +23,10 @@ class FactoryState(models.Model):
     var_avm=models.IntegerField()
 
     #travel
-    var_xtr=models.FloatField()
-    var_ytr=models.FloatField()
-    var_ztr=models.FloatField()
-    var_atr=models.FloatField()
+    var_1tr=models.FloatField()
+    var_2tr=models.FloatField()
+    var_3tr=models.FloatField()
+    var_4tr=models.FloatField()
 
     #step angle
     var_xsa=models.FloatField()
@@ -51,6 +51,7 @@ class FactoryState(models.Model):
 
     soletteWidth=models.FloatField()  #in mm
     soletteLength=models.FloatField()  # in mm
+    soletteThickness=models.FloatField()  # in mm
 
 
     hopperPosition=models.FloatField() #in mm, hopperPosition along the axis
